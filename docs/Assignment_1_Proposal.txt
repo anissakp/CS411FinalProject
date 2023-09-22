@@ -1,0 +1,9 @@
+1 Music Map Explorer:
+Create an interactive map app that allows users to explore the world through music. 
+Users can click on different locations on the map to discover music that originates from or is popular in that region.
+Visual presentation could be similar to SnapMaps in a way
+
+2 Soundtrack Composer for Life Events:
+Design an app that helps users create soundtracks for significant life events, such as weddings, birthdays, or vacations. 
+Users can select songs from Spotify or Apple Music to match the emotions and memories associated with each event.
+
