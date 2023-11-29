@@ -4,9 +4,14 @@ const locationSchema = new mongoose.Schema({
     name: {
         type: String
     },
-    songs: {
-        type: [ String ]
-    }
+    
+    location: {
+        type: String
+    },
   });
 
-module.exports = locationSchema;
+module.exports = mongoose.model('Location', locationSchema);
+
+// id: {
+//     type: Integer 
+//  }, 
