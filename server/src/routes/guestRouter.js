@@ -1,13 +1,8 @@
 const express = require('express');
+const guestRouter = express.Router();
 
-const personRouter = express.Router();
-
-// const { getAllLocations, 
-//         getLocation, 
-//         reccomendToLocation
-//     } = require('./personController');
-const spotifyRouter= require('../spotify/spotifyRouter');
-const locationModel = require('../../models/locationsModel');
+const spotifyRouter= require('./spotify/spotifyRouter');
+const locationModel = require('../models/locationsModel');
 
 /**
  * What can you do if you are not logged in: 
@@ -22,9 +17,9 @@ const locationModel = require('../../models/locationsModel');
 
 /**
  * When you load in, get all lcoation profiles and display them
- * URL = http:://www.geogrooves.com/userPerson/id
+ * URL = http:://www.geogrooves.com/
  */
-personRouter.get('/', async (req, res) => {
+guestRouter.get('/guestGetAll', async (req, res) => {
     try {
         const locationData = await locationModel.find();
         res.status(200).json(locationData);
@@ -36,24 +31,24 @@ personRouter.get('/', async (req, res) => {
 
 /**
  * Get a specific Location
- * URL = http:://www.geogrooves.com/userPerson/id
+ * URL = http://localhost:3000/:id
  * Sends the playlist of the specific locationa as well
  */
-personRouter.get('/:id', async (req, res) => {
-    try {
-        const locationDataById = await locationModel.findById(req.params.id);
-        res.status(200).json(locationDataById);
-    } catch (e) {
-        res.status(400).json({message: e.message});
-    }
-});
+// guestRouter.get('/:id', async (req, res) => {
+//     try {
+//         const locationDataById = await locationModel.findById(req.params.id);
+//         res.status(200).json(locationDataById);
+//     } catch (e) {
+//         res.status(400).json({message: e.message});
+//     }
+// });
 
 /** 
  * When you look for a song, it redirects to spotify router
- * URL = http:://www.geogrooves.com/userPerson/search 
+ * URL = http://localhost:3000/spotify/search
  * Not sure if this should have the location id in this as well??
  **/
-personRouter.use('/search', spotifyRouter);
+//guestRouter.use('/spotify', spotifyRouter);
 
 /**
  * When you are at a location, post a new song
@@ -62,4 +57,4 @@ personRouter.use('/search', spotifyRouter);
 //personRouter.post('/:id', reccomendToLocation);
 
 
-module.exports = personRouter;
+module.exports = guestRouter;
