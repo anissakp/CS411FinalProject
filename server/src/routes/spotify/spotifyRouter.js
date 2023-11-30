@@ -25,10 +25,9 @@ const spotifyApi = new SpotifyWebApi({
 spotifyRouter.get('/login', (req, res) => {
     res.redirect(spotifyApi.createAuthorizeURL(scopes, null))
 });
-
 spotifyRouter.get('/callback', (req, res) => {
     const error = req.query.error;
-    const code =  req.query.code;
+    const code = req.query.code;
     const state = req.query.state;
 
     if (error) {
@@ -37,31 +36,63 @@ spotifyRouter.get('/callback', (req, res) => {
         return;
     }
 
-    spotifyApi.authorizationCodeGrant(code).then(data => {
-        spotifyApi.setAccessToken(data.body.access_token);
-        spotifyApi.setRefreshToken(data.body.refresh_token);
+    // Use the authorization code to request tokens
+    spotifyApi.authorizationCodeGrant(code)
+        .then(data => {
+            const accessToken = data.body.access_token;
+            const refreshToken = data.body.refresh_token;
 
-        console.log(spotifyApi.getAccessToken())
-        console.log(spotifyApi.getRefreshToken())
+            // Set the obtained access token for subsequent requests
+            spotifyApi.setAccessToken(accessToken);
+            spotifyApi.setRefreshToken(refreshToken);
 
-        res.send('Authorization completed!');
-    })
-}); 
+            // Redirect or send a response as needed
+            res.send('Authorization completed!');
+        })
+        .catch(error => {
+            console.error('Error in authorizationCodeGrant:', error);
+            res.status(500).json({ error: 'Internal server error during token exchange.' });
+        });
+});
+
+
+
 
 /**
  * GET: Search method for an artist 
  * http://localhost:3000/spotify/search-artist
  */ 
+
 spotifyRouter.get('/search-artist', (req, res) => {
+    // Check if there is a valid access token
+    const accessToken = spotifyApi.getAccessToken();
+    if (!accessToken) {
+        return res.status(401).json({ error: 'No valid access token provided.' });
+    }
+
+    // Log the access token for debugging purposes
+    console.log('Access Token:', accessToken);
+
     const query = req.query.artist;
 
     spotifyApi.searchArtists(query)
         .then(data => {
-            res.status(200).json(data.body);
+            // Check if there are artists in the response
+            if (data.body.artists && data.body.artists.items.length > 0) {
+                res.status(200).json(data.body.artists);
+            } else {
+                // If no artists found, send a custom error message
+                res.status(404).json({ error: 'No artists found for the given query.' });
+            }
         })
-        .catch(error =>{
-            res.status(500).json({error: error.message});
-        })
-}); 
+        .catch(error => {
+            // Log the specific error for debugging purposes
+            console.error('Error in /search-artist:', error);
+            // Send an appropriate status code and error message
+            res.status(500).json({ error: 'Internal server error.' });
+        });
+});
+
+
 
 module.exports = spotifyRouter;
