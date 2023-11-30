@@ -93,6 +93,40 @@ spotifyRouter.get('/search-artist', (req, res) => {
         });
 });
 
+spotifyRouter.get('/search-track', async (req, res) => {
+    try {
+        // Check if there is a valid access token
+        const accessToken = spotifyApi.getAccessToken();
+        if (!accessToken) {
+            return res.status(401).json({ error: 'No valid access token provided.' });
+        }
+
+        // Log the access token for debugging purposes
+        console.log('Access Token:', accessToken);
+
+        const query = req.query.track;
+
+        // Use async/await for a cleaner error handling
+        const data = await spotifyApi.searchTracks(query);
+
+        // Check if there are tracks in the response
+        if (data.body.tracks && data.body.tracks.items.length > 0) {
+            res.status(200).json(data.body.tracks.items);
+        } else {
+            // If no tracks found, send a custom error message
+            res.status(404).json({ error: 'No tracks found for the given query.' });
+        }
+    } catch (error) {
+        // Log the specific error for debugging purposes
+        console.error('Error in /search-track:', error);
+
+        // Send an appropriate status code and error message
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+});
+
+
+
 spotifyRouter.post('/make-playlist', (req, res) => {
     // Check if there is a valid access token
     const accessToken = spotifyApi.getAccessToken();
