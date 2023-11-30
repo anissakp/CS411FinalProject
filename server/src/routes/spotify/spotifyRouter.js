@@ -12,18 +12,16 @@ const scopes = [
     'user-read-private'
 ]; 
 
-// const spotifyApi = new SpotifyWebApi({
-//     clientId: process.env.spotifyClientId,
-//     clientSecret: process.env.spotifyClientSecret,
-//     redirectUri: 'http://localhost:3000/users'
-// });
-
 const spotifyApi = new SpotifyWebApi({
     clientId: '93c1c69c66864a5d998f72bf60c49f72',
     clientSecret: 'eecd235b96114904a1f1e1c989fd7160',
     redirectUri: 'http://localhost:3000/spotify/callback',
 });
 
+
+/**
+ * http://localhost:3000/spotify/login
+ */
 spotifyRouter.get('/login', (req, res) => {
     res.redirect(spotifyApi.createAuthorizeURL(scopes, null))
 });
@@ -42,12 +40,17 @@ spotifyRouter.get('/callback', (req, res) => {
     spotifyApi.authorizationCodeGrant(code).then(data => {
         spotifyApi.setAccessToken(data.body.access_token);
         spotifyApi.setRefreshToken(data.body.refresh_token);
+
+        console.log(spotifyApi.getAccessToken())
+        console.log(spotifyApi.getRefreshToken())
+
         res.send('Authorization completed!');
     })
 }); 
 
 /**
  * GET: Search method for an artist 
+ * http://localhost:3000/spotify/search-artist
  */ 
 spotifyRouter.get('/search-artist', (req, res) => {
     const query = req.query.artist;

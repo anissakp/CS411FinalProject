@@ -22,8 +22,7 @@ app.get('/', async (req, res) => {
 });
 
 /*
-http://localhost:3000/login
-Login
+http://localhost:3000/spotify
 */
 app.use('/spotify', spotifyRouter);
 

@@ -17,7 +17,7 @@ async function startServer () {
     mongoose.connect(mongooseURL);
     const database = mongoose.connection;
 
-
+ 
     //checking if the server is on
     server.listen(PORT, () => {
         console.log(`Listening on port ${PORT}...`);
