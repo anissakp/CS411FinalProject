@@ -17,7 +17,7 @@ app.get('/', async (req, res) => {
         const locationData = await locationModel.find();
         res.status(200).json(locationData);
     } catch (e) {
-        res.status(400).json({message: e.message});
+        res.status(400).json({message: e.message}); 
     }
 });
 
