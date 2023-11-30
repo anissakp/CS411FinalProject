@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const guestRouter = require('./routes/guestRouter');
+//const guestRouter = require('./routes/guestRouter');
 const usersRouter = require('./routes/usersRouter');
 const spotifyRouter = require('./routes/spotify/spotifyRouter');
 const locationModel = require('./models/locationsModel');
@@ -49,7 +49,7 @@ app.post('/newLocation', async (req, res) => {
 });
 
 //random person
-app.use('/', guestRouter);
+//app.use('/', guestRouter);
 
 //users
 app.use('/users', usersRouter);
