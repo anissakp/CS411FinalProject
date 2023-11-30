@@ -54,6 +54,7 @@ spotifyRouter.get('/callback', (req, res) => {
  */ 
 spotifyRouter.get('/search-artist', (req, res) => {
     const query = req.query.artist;
+    console.log(query)
 
     spotifyApi.searchArtists(query)
         .then(data => {
