@@ -68,7 +68,7 @@ spotifyRouter.get('/search-artist', (req, res) => {
     const accessToken = spotifyApi.getAccessToken();
     if (!accessToken) {
         return res.status(401).json({ error: 'No valid access token provided.' });
-    }
+    } 
 
     // Log the access token for debugging purposes
     console.log('Access Token:', accessToken);
@@ -93,6 +93,30 @@ spotifyRouter.get('/search-artist', (req, res) => {
         });
 });
 
+spotifyRouter.post('/make-playlist', (req, res) => {
+    // Check if there is a valid access token
+    const accessToken = spotifyApi.getAccessToken();
+    if (!accessToken) {
+        return res.status(401).json({ error: 'No valid access token provided.' });
+    } 
+
+    // Log the access token for debugging purposes
+    console.log('Access Token:', accessToken);
+
+    const playlistName = req.body.playlistName;
+    const playlastDescription = req.body.description;
+
+    spotifyApi.createPlaylist(playlistName, {'description': playlastDescription, 'public': true})
+        .then(data => {
+            res.status(200).json(data);   
+        })
+        .catch(error => {
+            // Error in making playlist
+            console.error('Error in /make-playlist:', error);
+            // Send an appropriate status code and error message
+            res.status(500).json({ error: 'Internal server error.' }); 
+        });
+});
 
 
 module.exports = spotifyRouter;
