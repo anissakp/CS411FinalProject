@@ -8,6 +8,7 @@ const spotifyRouter = express.Router();
 
 const scopes = [
     'playlist-modify-public',
+    'playlist-modify-private',
     'user-read-email',
     'user-read-private'
 ]; 
@@ -84,7 +85,7 @@ spotifyRouter.get('/search-artist', (req, res) => {
                 // If no artists found, send a custom error message
                 res.status(404).json({ error: 'No artists found for the given query.' });
             }
-        })
+        }) 
         .catch(error => {
             // Log the specific error for debugging purposes
             console.error('Error in /search-artist:', error);
@@ -125,8 +126,6 @@ spotifyRouter.get('/search-track', async (req, res) => {
     }
 });
 
-
-
 spotifyRouter.post('/make-playlist', (req, res) => {
     // Check if there is a valid access token
     const accessToken = spotifyApi.getAccessToken();
@@ -142,7 +141,8 @@ spotifyRouter.post('/make-playlist', (req, res) => {
 
     spotifyApi.createPlaylist(playlistName, {'description': playlastDescription, 'public': true})
         .then(data => {
-            res.status(200).json(data);   
+            console.log(data.body.id)
+            res.status(200).json(data.body.id);   
         })
         .catch(error => {
             // Error in making playlist
@@ -152,5 +152,62 @@ spotifyRouter.post('/make-playlist', (req, res) => {
         });
 });
 
+/**
+ * GET: Search a specific playlist using the playlist id 
+ * http://localhost:3000/spotify/search-playlist
+ */ 
+spotifyRouter.get('/search-playlist', async (req, res) => {
+    try {
+        // Check if there is a valid access token
+        const accessToken = spotifyApi.getAccessToken();
+        if (!accessToken) {
+            return res.status(401).json({ error: 'No valid access token provided.' });
+        }
+
+        // Log the access token for debugging purposes
+        console.log('Access Token:', accessToken);
+
+        const query = req.query.playlistId;
+        console.log(query)
+        const data = await spotifyApi.getPlaylist(query);
+        res.status(200).json(data)
+    } catch (error) {
+        // Log the specific error for debugging purposes
+        console.error('Error in /search-track:', error);
+
+        // Send an appropriate status code and error message
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+})
+
+/**
+ * POST: Add track to a playlist
+ * http://localhost:3000/spotify/add-track
+ */ 
+spotifyRouter.post('/add-track', async (req, res) => {
+    try {
+         // Check if there is a valid access token
+        const accessToken = spotifyApi.getAccessToken();
+        if (!accessToken) {
+            return res.status(401).json({ error: 'No valid access token provided.' });
+        } 
+
+        // Log the access token for debugging purposes
+        console.log('Access Token:', accessToken);
+
+        const playlistId = req.body.playlistId;
+        const trackId = `spotify:track:${req.body.trackId}`;
+
+        try {
+            const data = await spotifyApi.addTracksToPlaylist(playlistId, [trackId]);
+            console.log('Track added to playlist:', data);
+        } catch (error) {
+            console.error('Error adding track to playlist:', error.message);
+        }
+        res.status(200).json(data.body)
+    } catch (error) {
+        res.status(500).json({error: error})
+    }
+})
 
 module.exports = spotifyRouter;
