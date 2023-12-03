@@ -1,10 +1,13 @@
 const express = require('express');
 const app = express();
+const path = require('path');  // Import the 'path' module
+
 
 //const guestRouter = require('./routes/guestRouter');
 const usersRouter = require('./routes/usersRouter');
 const spotifyRouter = require('./routes/spotify/spotifyRouter');
 const locationModel = require('./models/locationsModel');
+const mapRouter = require('./routes/map/mapRouter');
 
 app.use(express.json());
 
@@ -53,5 +56,14 @@ app.post('/newLocation', async (req, res) => {
 
 //users
 app.use('/users', usersRouter);
+
+
+// Serve static files from the 'public' folder (map.html)
+//http://localhost:3000/map
+app.use(express.static(path.join(__dirname, 'public')));
+// Use the mapRouter for the '/map' route
+app.use('/map', mapRouter);
+
+
 
 module.exports = app;
