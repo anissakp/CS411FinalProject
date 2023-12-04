@@ -12,6 +12,12 @@ const locationSchema = new mongoose.Schema({
     },
     longitude:{
         type: String
+    },
+    playlistID:{
+        type:String
+    },
+    userID:{
+        type:String
     }
   });
 
