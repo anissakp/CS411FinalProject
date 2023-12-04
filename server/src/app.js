@@ -51,19 +51,14 @@ app.post('/newLocation', async (req, res) => {
     }
 });
 
-//random person
-//app.use('/', guestRouter);
 
 //users
 app.use('/users', usersRouter);
-
 
 // Serve static files from the 'public' folder (map.html)
 //http://localhost:3000/map
 app.use(express.static(path.join(__dirname, 'public')));
 // Use the mapRouter for the '/map' route
 app.use('/map', mapRouter);
-
-
 
 module.exports = app;
