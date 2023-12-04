@@ -23,7 +23,6 @@ app.get('/', async (req, res) => {
         res.status(400).json({message: e.message});
     }
 });
-
 /*
 http://localhost:3000/spotify
 */
@@ -34,13 +33,17 @@ app.use('/spotify', spotifyRouter);
  * example body json:
  * {
     "name": "CDS",
-    "location": "665 Comm Ave"
+    "location": "665 Comm Ave",
+    "latitude":"9.2874",
+    "longitude":"-71.293"
     }
  */
 app.post('/newLocation', async (req, res) => {
     const newLocation = new locationModel({
         name: req.body.name,
-        location: req.body.location
+        location: req.body.location,
+        latitude:req.body.latitude,
+        longitude:req.body.longitude
     })
 
     try {
@@ -51,7 +54,8 @@ app.post('/newLocation', async (req, res) => {
     }
 });
 
-
+//random person
+//app.use('/', guestRouter);
 //users
 app.use('/users', usersRouter);
 
