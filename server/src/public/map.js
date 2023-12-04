@@ -11,12 +11,12 @@ async function initMap() {
 
   // The map, centered at Uluru
   map = new Map(document.getElementById("map"), {
-    zoom: 4,
+    zoom: 13,
     center: position,
     mapId: "DEMO_MAP_ID",
   });
 
-  // The marker, positioned at Uluru
+  // The marker, positioned at CDS
   const marker = new AdvancedMarkerElement({
     map: map,
     position: position,
