@@ -19,4 +19,6 @@ router.get('/locations', async (req, res) => {
   }
 });
 
+
+
 module.exports = router;
