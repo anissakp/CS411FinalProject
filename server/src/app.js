@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');  // Import the 'path' module
-
+const axios = require('axios'); // to call spotify router and shit
 
 //const guestRouter = require('./routes/guestRouter');
 const usersRouter = require('./routes/usersRouter');
@@ -39,11 +39,36 @@ app.use('/spotify', spotifyRouter);
     }
  */
 app.post('/newLocation', async (req, res) => {
+
+    //const makePlaylistResponse = app.post('/spotify/make-playlist');
+    //console.log(makePlaylistResponse);
+    //const playlistId = makePlaylistResponse.body.id;
+    playlistId = null;
+    userName = null;
+
+    try {
+        const makePlaylistResponse = await axios.post('http://localhost:3000/spotify/make-playlist', {
+            playlistName: req.body.name,
+            description: "Your playlist"
+        })
+        const getUser = await axios.get('http://localhost:3000/spotify/user')
+
+        playlistId = makePlaylistResponse.data;
+        userName = getUser.data;
+    } catch (error) {
+        console.error('Error in /make-playlist:', error);
+        res.status(500).json({ error: 'Can not make playlist'}); 
+    }
+
+    console.log(playlistId);
+
     const newLocation = new locationModel({
         name: req.body.name,
         location: req.body.location,
-        latitude:req.body.latitude,
-        longitude:req.body.longitude
+        latitude: req.body.latitude,
+        longitude: req.body.longitude, 
+        userID: userName,
+        playlistID: playlistId
     })
 
     try {
