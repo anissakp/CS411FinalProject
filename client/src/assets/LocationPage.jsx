@@ -9,4 +9,5 @@ const locationPage = () => {
     //get the data and display it well
 
     //add song to track using the spotify(addTrack)
+
 }
