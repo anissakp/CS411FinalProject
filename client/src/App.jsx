@@ -1,14 +1,11 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import React from 'react';
-import CreateAnAccountPage from "./assets/CreateAnAccountPage";
+import MapPage from '../src/assets/mapPage';
 import './App.css';
 
 const App = () => {
   return (
     <div className="app-container">
-      <CreateAnAccountPage />
+      <MapPage />
     </div>
   );
 };

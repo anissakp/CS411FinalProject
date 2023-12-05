@@ -56,6 +56,4 @@ locationsData.forEach(location => {
 
 
 }
-
-
 initMap();

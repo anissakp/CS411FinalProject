@@ -1,0 +1,96 @@
+body{
+    display:flex;
+    flex-direction:column;
+    background-color:FFFFFF;
+    font-family: 'Roboto', sans-serif;
+  }
+  h1{
+    
+    font-weight:800;
+    font-size:48px;
+    margin:0;
+  }
+  h2{
+    font-size:30px;
+    font-weight:700;
+  }
+  p{
+    font-size:20px;
+  
+  }
+  .header {
+    font-family: monospace;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    padding: 60px;
+    border: 30px;
+    margin-left: 80px;
+    margin-right: 100px;
+    align-items: flex-start; /* Add this line */
+  }
+  ul{
+    list-style-type:none;
+    display:flex;
+    margin: 0;
+    padding: 0;
+    gap: 32px;
+  }
+  .upper{
+    background-color:rgb(255, 255, 255);
+    display:flex;
+    flex-direction: row;
+    height:300px;
+    width:100%;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 30px;
+  }
+  .textBox{
+    border-radius: 15px;
+    background-color: rgba(170, 203, 239, 1);
+    height:300px;
+    width:600px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    flex-direction: column;
+  }
+  .NewLocation{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+  }
+  .textBox2{
+    border-radius: 15px;
+    background-color: rgba(219, 248, 218, 1);
+    height:150px;
+    width:250px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    flex-direction: column;
+  }
+  .mapContainer{
+    height:800px;
+    width:80%;
+  
+    padding-left:120px;
+    padding-right:40px;
+    padding-bottom: 40px;
+  }
+  
+  .footer{
+    font-size: small;
+    text-align: center;
+    margin: 20px;
+  }
+  
+  
+  /* 
+   * Always set the map height explicitly to define the size of the div element
+   * that contains the map. 
+   */
+   #map {
+    height: 100%;
+  }
+  
