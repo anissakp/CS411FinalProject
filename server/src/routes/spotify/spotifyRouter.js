@@ -63,7 +63,7 @@ spotifyRouter.get('/callback', (req, res) => {
                 exports: 1000
             });
             //res.send('Authorization completed!');
-            res.redirect('/')
+            res.redirect('http://localhost:5173/map')
         })
         .catch(error => {
             console.error('Error in authorizationCodeGrant:', error);
