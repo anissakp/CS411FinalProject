@@ -1,6 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
+const SearchSongBox = () => {
+    const [searchInput, setSearchInput] = useState('');
+
+    const handleChange = (event) => {
+        setInputValue(event.target.value);
+      };
+
+      return (
+        <div>
+          <label htmlFor="userInput">Enter something:</label>
+          <input
+            type="text"
+            id="userInput"
+            value={inputValue}
+            onChange={handleChange}
+            placeholder="Type here..."
+          />
+          <p>You typed: {inputValue}</p>
+        </div>
+      );
+    };
+
+export default SearchSongBox
+
+
+
+
+
 const locationPage = () => {
     const [playlistData, setPlaylistData] = useState(null);
 
