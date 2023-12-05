@@ -56,6 +56,7 @@ app.post('/newLocation', async (req, res) => {
 
 //random person
 //app.use('/', guestRouter);
+
 //users
 app.use('/users', usersRouter);
 
