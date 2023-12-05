@@ -24,11 +24,14 @@ usersRouter.get('/', (req, res) => {
         return;
     }
 
-    spotifyApi.authorizationCodeGrant(code).then(data => {
-        spotifyApi.setAccessToken(data.body.access_token);
-        spotifyApi.setRefreshToken(data.body.refresh_token);
-        res.send('Authorization completed!');
-    })
+    // spotifyApi.authorizationCodeGrant(code).then(data => {
+    //     spotifyApi.setAccessToken(data.body.access_token);
+    //     spotifyApi.setRefreshToken(data.body.refresh_token);
+    //     res.send('Authorization completed!');
+    // })
+
+    res.send("users");
+
 });
 
 usersRouter.get('/spotify', spotifyRouter);
