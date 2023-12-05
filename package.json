@@ -1,10 +1,11 @@
 {
   "name": "geo-grooves",
   "dependencies": {
+    "install": "^0.13.0",
     "path": "^0.12.7"
   },
   "scripts": {
-    "server": "npm run start --prefix server", 
+    "server": "npm run start --prefix server",
     "client": "npm start --prefix client",
     "watch": "npm run server & npm run client",
     "deploy": "npm run build --prefix client && npm start --prefix server"
