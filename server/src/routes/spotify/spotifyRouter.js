@@ -1,10 +1,13 @@
 const express = require('express');
 const SpotifyWebApi = require('spotify-web-api-node');
 
+const cookie = require('cookie')
+
 const path = require('path');
 require("dotenv").config({path: path.resolve(__dirname, '../../../.env')});
 
 const spotifyRouter = express.Router();
+//spotifyRouter.use(cookieParser);
 
 const scopes = [
     'playlist-modify-public',
@@ -47,17 +50,26 @@ spotifyRouter.get('/callback', (req, res) => {
             spotifyApi.setAccessToken(accessToken);
             spotifyApi.setRefreshToken(refreshToken);
 
+            //set the accessToken as a cookie
+            const accessTokenCookie = cookie.serialize('spotifyAccesstoken', `${accessToken}`, {
+                httpOnly: true,
+                maxAge: 3600 * 168,
+                path: '/'
+            });
+            
             // Redirect or send a response as needed
-            res.send('Authorization completed!');
+            res.cookie('spotifyAccessToken', accessToken, {
+                httpOnly: true,
+                exports: 1000
+            });
+            //res.send('Authorization completed!');
+            res.redirect('/')
         })
         .catch(error => {
             console.error('Error in authorizationCodeGrant:', error);
             res.status(500).json({ error: 'Internal server error during token exchange.' });
         });
 });
-
-
-
 
 /**
  * GET: Search method for an artist 
@@ -68,11 +80,13 @@ spotifyRouter.get('/search-artist', (req, res) => {
     // Check if there is a valid access token
     const accessToken = spotifyApi.getAccessToken();
     if (!accessToken) {
-        return res.status(401).json({ error: 'No valid access token provided.' });
-    } 
-
-    // Log the access token for debugging purposes
-    console.log('Access Token:', accessToken);
+        const cookies = cookie.parse(req.headers.cookie || '');
+        const spotifytAccessToken = cookies.spotifyAccessToken;
+        console.log(spotifytAccessToken);
+        spotifyApi.setAccessToken(spotifytAccessToken);
+    } else {
+        console.log('Access Token:', accessToken);
+    }
 
     const query = req.query.artist;
 
@@ -87,7 +101,7 @@ spotifyRouter.get('/search-artist', (req, res) => {
             }
         }) 
         .catch(error => {
-            // Log the specific error for debugging purposes
+            // Log the specific error for debugging purposes 
             console.error('Error in /search-artist:', error);
             // Send an appropriate status code and error message
             res.status(500).json({ error: 'Internal server error.' });
@@ -99,11 +113,13 @@ spotifyRouter.get('/search-track', async (req, res) => {
         // Check if there is a valid access token
         const accessToken = spotifyApi.getAccessToken();
         if (!accessToken) {
-            return res.status(401).json({ error: 'No valid access token provided.' });
+            const cookies = cookie.parse(req.headers.cookie || '');
+            const spotifytAccessToken = cookies.spotifyAccessToken;
+            console.log(spotifytAccessToken);
+            spotifyApi.setAccessToken(spotifytAccessToken);
+        } else {
+            console.log('Access Token:', accessToken);
         }
-
-        // Log the access token for debugging purposes
-        console.log('Access Token:', accessToken);
 
         const query = req.query.track;
 
@@ -130,11 +146,13 @@ spotifyRouter.post('/make-playlist', (req, res) => {
     // Check if there is a valid access token
     const accessToken = spotifyApi.getAccessToken();
     if (!accessToken) {
-        return res.status(401).json({ error: 'No valid access token provided.' });
-    } 
-
-    // Log the access token for debugging purposes
-    console.log('Access Token:', accessToken);
+        const cookies = cookie.parse(req.headers.cookie || '');
+        const spotifytAccessToken = cookies.spotifyAccessToken;
+        console.log(spotifytAccessToken);
+        spotifyApi.setAccessToken(spotifytAccessToken);
+    } else {
+        console.log('Access Token:', accessToken);
+    }
 
     const playlistName = req.body.playlistName;
     const playlastDescription = req.body.description;
@@ -158,14 +176,15 @@ spotifyRouter.post('/make-playlist', (req, res) => {
  */ 
 spotifyRouter.get('/search-playlist', async (req, res) => {
     try {
-        // Check if there is a valid access token
         const accessToken = spotifyApi.getAccessToken();
         if (!accessToken) {
-            return res.status(401).json({ error: 'No valid access token provided.' });
+            const cookies = cookie.parse(req.headers.cookie || '');
+            const spotifytAccessToken = cookies.spotifyAccessToken;
+            console.log(spotifytAccessToken);
+            spotifyApi.setAccessToken(spotifytAccessToken);
+        } else {
+            console.log('Access Token:', accessToken);
         }
-
-        // Log the access token for debugging purposes
-        console.log('Access Token:', accessToken);
 
         const query = req.query.playlistId;
         console.log(query)
@@ -181,19 +200,20 @@ spotifyRouter.get('/search-playlist', async (req, res) => {
 })
 
 /**
- * POST: Add track to a playlist
+ * POST: Add track to a specific playlist
  * http://localhost:3000/spotify/add-track
  */ 
 spotifyRouter.post('/add-track', async (req, res) => {
     try {
-         // Check if there is a valid access token
         const accessToken = spotifyApi.getAccessToken();
         if (!accessToken) {
-            return res.status(401).json({ error: 'No valid access token provided.' });
-        } 
-
-        // Log the access token for debugging purposes
-        console.log('Access Token:', accessToken);
+            const cookies = cookie.parse(req.headers.cookie || '');
+            const spotifytAccessToken = cookies.spotifyAccessToken;
+            console.log(spotifytAccessToken);
+            spotifyApi.setAccessToken(spotifytAccessToken);
+        } else {
+            console.log('Access Token:', accessToken);
+        }
 
         const playlistId = req.body.playlistId;
         const trackId = `spotify:track:${req.body.trackId}`;
