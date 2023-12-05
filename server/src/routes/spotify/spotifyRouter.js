@@ -160,6 +160,7 @@ spotifyRouter.post('/make-playlist', (req, res) => {
     spotifyApi.createPlaylist(playlistName, {'description': playlastDescription, 'public': true})
         .then(data => {
             console.log(data.body.id)
+            //res.send(data.body.id)
             res.status(200).json(data.body.id);   
         })
         .catch(error => {
@@ -228,6 +229,36 @@ spotifyRouter.post('/add-track', async (req, res) => {
     } catch (error) {
         res.status(500).json({error: error})
     }
+})
+
+/**
+ * Get the user's information
+ */
+spotifyRouter.get('/user', async (req, res) => {
+    try {
+        const accessToken = spotifyApi.getAccessToken();
+        if (!accessToken) {
+            const cookies = cookie.parse(req.headers.cookie || '');
+            const spotifytAccessToken = cookies.spotifyAccessToken;
+            console.log(spotifytAccessToken);
+            spotifyApi.setAccessToken(spotifytAccessToken);
+        } else {
+            console.log('Access Token:', accessToken);
+        }
+
+        spotifyApi.getMe()
+        .then(data => {
+            console.log(data.body.display_name)
+            res.status(200).json(data.body.display_name);   
+        })
+        .catch(error => {
+            // Error in making playlist
+            console.error('Error in getting user', error);
+            res.status(500).json({ error: 'Internal server error.' }); 
+        });
+    } catch (error) {
+        res.status(500).json({error: error})
+    } 
 })
 
 module.exports = spotifyRouter;
