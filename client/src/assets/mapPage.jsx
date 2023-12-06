@@ -1,19 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import MapComponent from './mapComponent'; // Adjust the path accordingly
 import './mapStyle.css';
 
 const MapPage = () => {
-
   return (
     <body>
- 
       <div className="header">
         <h1>GeoGrooves</h1>
-        <div className="links">
-          <ul>
-            <li>HOME</li>
-            <li>MAP</li>
-          </ul>
-        </div>
       </div>
 
       <div className="upper">
@@ -23,7 +16,12 @@ const MapPage = () => {
           <p>Or create a new location by clicking the Create button</p>
         </div>
       </div>
-  
+      
+      <div className="mapContainer">
+        {/* Include the MapComponent here */}
+        <MapComponent />
+      </div>
+
       <div className="NewLocation">
         <div className="textBox2">
           <h2>can't find it?</h2>

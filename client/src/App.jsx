@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import HomePage from './assets/HomePage';
-import MapPage from './assets/mapPage';
+import MapPage from './assets/mapComponent';
 
 const App = () => {
   return (
