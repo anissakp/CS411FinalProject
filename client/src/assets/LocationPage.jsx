@@ -35,7 +35,7 @@ const LocationPage = () => {
     const getPlaylist = async () => {
       try {
         const playlistInfo = await axios.get(`http://localhost:3000/spotify/search-playlist?playlistId=${playlistId}`);
-        setPlaylistInfo(playlistInfo.data);
+        setPlaylistInfo(playlistInfo.data.body);
       } catch (error) {
         console.error('Error getting track from backend into frontend:', error);
       }
@@ -43,6 +43,37 @@ const LocationPage = () => {
 
     getPlaylist();
   }, []);
+
+  console.error(playlistInfo)
+
+  const FormatPlaylistInfo = ( {playlistData}) => {
+    if (!playlistData) {
+      return <div>Loading...</div>;
+    }
+
+    const { name, owner, tracks } = playlistData;
+
+    return (
+      <div>
+        <h1>{name}</h1>
+        <p>Owner: {owner.display_name}</p>
+        <h2>Tracks:</h2>
+        <ul>
+          {tracks.items.map((trackItem) => {
+            const { track } = trackItem;
+            return (
+              <li key={track.id}>
+                <p>Title: {track.name}</p>
+                <p>Artist: {track.artists.map((artist) => artist.name).join(', ')}</p>
+                <p>Track ID: {track.id}</p>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    );
+
+  }
 
   return (
     <div>
@@ -53,6 +84,10 @@ const LocationPage = () => {
             <h2>Playlist ID: {playlistId}</h2>
             <p>Search for a song and add it to your selected location's playlist.</p>
           </div>
+        </div>
+
+        <div>
+          <FormatPlaylistInfo playlistData = {playlistInfo} />
         </div>
 
         <div style={{ marginBottom: '20px' }}>
