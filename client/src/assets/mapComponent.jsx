@@ -57,11 +57,11 @@ const Map = () => {
     return <div>Loading maps</div>;
   }
 
-  const onLoad = (map) => {
-    const bounds = new window.google.maps.LatLngBounds();
-    markersInfo.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
-    map.fitBounds(bounds);
-  };
+  // const onLoad = (map) => {
+  //   const bounds = new window.google.maps.LatLngBounds();
+  //   markersInfo.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
+  //   map.fitBounds(bounds);
+  // };
 
   return (
     <div>
@@ -69,7 +69,7 @@ const Map = () => {
         mapContainerStyle={mapContainerStyle}
         zoom={10}
         center={center}
-        onLoad={onLoad}
+        // onLoad={onLoad}
       >
         {markersInfo.map(({ lat, lng }) => (
           <Marker key={`${lat}-${lng}`} position={{ lat, lng }} />
