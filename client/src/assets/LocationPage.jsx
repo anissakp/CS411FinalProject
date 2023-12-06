@@ -18,6 +18,13 @@ const LocationPage = () => {
 
 export default LocationPage;
 
+<<<<<<< HEAD
+=======
+const locationPage = () => {
+    //get the location id
+    //get the playlist from spotify(getPlaylist)
+    const playlistInfo = axios.get("http://localhost:3000/spotify/search-track")
+>>>>>>> 0cbf291823ed6fab181d6b5f43c96db92c29c79d
 
 // const SearchSongBox = () => {
 //     const [searchInput, setSearchInput] = useState('');
