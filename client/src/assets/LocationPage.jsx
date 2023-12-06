@@ -28,11 +28,7 @@ export default SearchSongBox
 const locationPage = () => {
     //get the location id
     //get the playlist from spotify(getPlaylist)
-    const playlistInfo = axios.get("http://localhost:3000/spotify/search-track", {
-        body: {
-            track: "userInput" //this will be the user input
-        }
-    })
+    const playlistInfo = axios.get("http://localhost:3000/spotify/search-track")
 
     //search button to search for a song
     //get the data and display it well
