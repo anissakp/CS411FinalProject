@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 const LocationPage = () => {
   const { playlistId } = useParams();
+  console.log(playlistId)
   /* songQuery is the input that the user gives */
   const [songQuery, setSongQuery] = useState('');
   const [searchInfo, setSearchInfo] = useState(null);
+  const [playlistInfo, setPlaylistInfo] = useState([]);
 
   const handleSearch = async () => {
     try {
@@ -21,9 +23,21 @@ const LocationPage = () => {
   console.log('Search Info:', searchInfo);
 
   // Fetch additional details based on playlistId and display them
-
   /* make it so it shows playlist info */
+  useEffect(() => {
+    const getPlaylist = async () => {
+      try {
+        const playlistInfo = await axios.get(`http://localhost:3000/spotify/search-playlist?playlistId=${playlistId}`);
+        setPlaylistInfo(playlistInfo)
+      } catch (error) { 
+        console.error('Error getting track from backend into frontend:', error);
+      }
+    }
 
+    getPlaylist();
+  }, []);
+
+  console.log('playlistInfo:', playlistInfo);
 
   return (
     <div>
