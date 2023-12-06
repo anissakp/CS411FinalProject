@@ -4,56 +4,64 @@ import { useParams } from 'react-router-dom';
 
 const LocationPage = () => {
   const { playlistId } = useParams();
+  /* songQuery is the input that the user gives */
+  const [songQuery, setSongQuery] = useState('');
+  const [searchInfo, setSearchInfo] = useState(null);
+
+  const handleSearch = async () => {
+    try {
+      console.log('Song Query:', songQuery);
+      const response = await axios.get(`http://localhost:3000/spotify/search-track?track=${songQuery}`);
+      setSearchInfo(response.data);
+    } catch (error) {
+      console.error('Error searching for track:', error);
+    }
+  };
+
+  console.log('Search Info:', searchInfo);
 
   // Fetch additional details based on playlistId and display them
 
+  /* make it so it shows playlist info */
+
+
   return (
-    <div style={{ paddingTop: '50px' }}>
-      <h1>Your Selected Location Profile</h1>
-      <p>Playlist ID: {playlistId}</p>
-      {/* Add more details as needed */}
+    <div>
+      <div style={{ paddingTop: '50px' }}>
+        <h1>Your Selected Location's Profile</h1>  
+        <div className="upper">
+        <div className="textBox">
+          <h2>Playlist ID: {playlistId}</h2>
+          <p>Search for a song and add it to your selected location's playlist.</p>
+        </div>
+      </div>
+
+        <div style={{ marginBottom: '20px' }}>
+          <input
+            type="text"
+            placeholder="Enter a song name"
+            value={songQuery}
+            onChange={(e) => setSongQuery(e.target.value)}
+          />
+          
+          <button
+            onClick={handleSearch}
+            style={{
+              backgroundColor: 'rgba(170, 203, 239, 1)',
+              padding: '8px 12px',
+              borderRadius: '15px',
+              color: '#fff',
+              cursor: 'pointer',
+            }}
+          >
+            Search
+          </button>
+        </div>
+        {/* Display Search Results */}
+      </div>
     </div>
   );
 };
 
 export default LocationPage;
 
-
-// const SearchSongBox = () => {
-//     const [searchInput, setSearchInput] = useState('');
-
-//     const handleChange = (event) => {
-//         setInputValue(event.target.value);
-//       };
-
-//       return (
-//         <div>
-//           <label htmlFor="userInput">Enter something:</label>
-//           <input
-//             type="text"
-//             id="userInput"
-//             value={inputValue}
-//             onChange={handleChange}
-//             placeholder="Type here..."
-//           />
-//           <p>You typed: {inputValue}</p>
-//         </div>
-//       );
-//     };
-
-// export default SearchSongBox
-
-// const locationPage = () => {
-//     //get the location id
-//     //get the playlist from spotify(getPlaylist)
-//     const playlistInfo = axios.get("http://localhost:3000/spotify/search-track", {
-//         body: {
-//             track: "userInput" //this will be the user input
-//         }
-//     })
-
-//     //search button to search for a song
-//     //get the data and display it well
-
-//     //add song to track using the spotify(addTrack)
-// }
