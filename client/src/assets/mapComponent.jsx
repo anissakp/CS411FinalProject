@@ -49,8 +49,9 @@ const Map = () => {
     fetchMarkers();
   }, []);
 
-  const handleMarkerClick = () => {
-    navigate('/location');
+  const handleMarkerClick = (marker) => {
+    console.log("clicked on maker:", marker)
+    navigate(`/location/${marker.playlistId}`);
   }
 
   console.log(markersInfo);
@@ -70,8 +71,8 @@ const Map = () => {
         zoom={10}
         center={center}
       >
-        {markersInfo.map(({ lat, lng }) => (
-          <Marker key={`${lat}-${lng}`} position={{ lat, lng }} onClick={handleMarkerClick}/>
+        {markersInfo.map(({ lat, lng, playlistId }) => (
+          <Marker key={`${lat}-${lng}`} position={{ lat, lng }} onClick={() => handleMarkerClick({ playlistId })}/>
         ))}
       </GoogleMap>
     </div>
