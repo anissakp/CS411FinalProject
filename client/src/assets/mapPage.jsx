@@ -56,6 +56,15 @@ const MapPage = () => {
     }
   };
 
+  const buttonStyle = {
+    padding: '15px 30px',
+    backgroundColor: '#AACBF1', // Green color
+    color: 'white',
+    borderRadius: '20px',
+    textDecoration: 'none',
+    fontSize: '18px',
+  };
+
   return (
     <div className="mapPage">
       <div className="header" style={{ textAlign: 'center' }}>
@@ -70,7 +79,7 @@ const MapPage = () => {
         </div>
       </div>
 
-      <div className="mapContainer">
+      <div className="mapContainer" >
         <MapComponent
           containerElement={<div style={{ height: '80%' }} />}
           mapElement={<div style={{ height: '100%' }} />}
@@ -78,13 +87,15 @@ const MapPage = () => {
       </div>
 
       <div className="NewLocation">
-        <div className="textBox2">
+        {/* <div className="textBox2">
           <h2>can't find it..?</h2>
         </div>
+        */}
+
         <div className="input">
-        <h2 style={{ textAlign: 'center' }}>Create One!</h2>
-          <form onSubmit={handleSubmit}>
-            <label>
+        <h2 style={{ textAlign: 'center' }}>Create a Location!</h2>
+          <form onSubmit={handleSubmit} style={{ textAlign: 'center' }}>
+          <label>
               Location Name: 
               <input type="text" value={locationName} onChange={handleLocationNameChange} />
             </label>
@@ -104,8 +115,10 @@ const MapPage = () => {
               <input type="text" value={longitude} onChange={handleLongitudeChange} />
             </label>
             <br />
-            <button type="submit">Add Location</button>
-          </form>
+            <div style={{ textAlign: 'center', paddingTop: '30px' }}>
+              <button style={{ backgroundColor: '#AACBF1', color: 'white', fontSize: '18px', borderRadius: '20px'}} type="submit">Add Location</button>
+            </div>          
+            </form>
         </div>
       </div>
     </div>
@@ -113,3 +126,7 @@ const MapPage = () => {
 };
 
 export default MapPage;
+
+
+
+
