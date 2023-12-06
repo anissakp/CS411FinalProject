@@ -7,12 +7,12 @@ const containerStyle = {
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: '100vh', 
-    width: 1350
+    width: 1600,
   };
 
   const buttonStyle = {
     padding: '15px 30px',
-    backgroundColor: 'green',
+    backgroundColor: '#4CAF50', // Green color
     color: 'white',
     borderRadius: '20px',
     textDecoration: 'none',
