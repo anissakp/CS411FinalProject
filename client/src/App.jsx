@@ -12,7 +12,7 @@ const App = () => {
           <Route path="/map" element={<MapPage />} /> {/* Add this route for the MapPage */}
          
           {/* Add other routes as needed */}
-        </Routes>
+        </Routes> 
       </div>
     </Router>
   );

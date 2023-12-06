@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 const containerStyle = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: '100vh', 
-    width: 1400
+    width: 1350
   };
 
   const buttonStyle = {
@@ -17,8 +18,8 @@ const containerStyle = {
     textDecoration: 'none',
     fontSize: '18px',
   };
-const HomePage = () => {
   
+const HomePage = () => {
     return (
     <div style={containerStyle} >
       <h1>Welcome to GeoGrooves</h1>
@@ -29,4 +30,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-
