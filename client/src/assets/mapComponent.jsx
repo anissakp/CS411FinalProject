@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import axios from 'axios';
 
@@ -17,6 +18,7 @@ const center = {
 
 const Map = () => {
   const [markersInfo, setMarkersInfo] = useState([]);
+  const navigate = useNavigate();
 
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: 'AIzaSyD8SpqHTnJPLsFRhb7AYPj8_31boPv2MuM',
@@ -47,6 +49,10 @@ const Map = () => {
     fetchMarkers();
   }, []);
 
+  const handleMarkerClick = () => {
+    navigate('/location');
+  }
+
   console.log(markersInfo);
 
   if (loadError) {
@@ -57,22 +63,15 @@ const Map = () => {
     return <div>Loading maps</div>;
   }
 
-  // const onLoad = (map) => {
-  //   const bounds = new window.google.maps.LatLngBounds();
-  //   markersInfo.forEach(({ lat, lng }) => bounds.extend({ lat, lng }));
-  //   map.fitBounds(bounds);
-  // };
-
   return (
     <div>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
         zoom={10}
         center={center}
-        // onLoad={onLoad}
       >
         {markersInfo.map(({ lat, lng }) => (
-          <Marker key={`${lat}-${lng}`} position={{ lat, lng }} />
+          <Marker key={`${lat}-${lng}`} position={{ lat, lng }} onClick={handleMarkerClick}/>
         ))}
       </GoogleMap>
     </div>
