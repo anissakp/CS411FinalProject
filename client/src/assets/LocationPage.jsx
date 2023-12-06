@@ -28,7 +28,7 @@ const LocationPage = () => {
     const getPlaylist = async () => {
       try {
         const playlistInfo = await axios.get(`http://localhost:3000/spotify/search-playlist?playlistId=${playlistId}`);
-        setPlaylistInfo(playlistInfo)
+        setPlaylistInfo(playlistInfo.data)
       } catch (error) { 
         console.error('Error getting track from backend into frontend:', error);
       }
