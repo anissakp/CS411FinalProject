@@ -23,11 +23,12 @@ const MapPage = () => {
           mapElement={<div style = {{height: "100%"}}/>}
         />  
       </div>
-
       <div className="NewLocation">
         <div className="textBox2">
-          <h2>can't find it?</h2>
-          <p>Create it!</p>
+          <h2>can't find it..?</h2>
+        </div>
+        <div className="input">
+          <h2>Create One!</h2>
         </div>
       </div>
 
