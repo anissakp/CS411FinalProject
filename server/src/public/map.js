@@ -45,8 +45,6 @@ locationsData.forEach(location => {
         // You can now use marker.playlistID as needed
       });}
 
- 
-
   } else {
     console.error(`Invalid latitude or longitude for location: ${location.name}`);
   }

@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
 router.get('/locations', async (req, res) => {
   try {
     const locationData = await locationModel.find();
+    //console.log(locationData);
     res.json(locationData);
   } catch (e) {
     console.error(e);

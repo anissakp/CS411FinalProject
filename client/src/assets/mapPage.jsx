@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import MapComponent from './mapComponent'; // Adjust the path accordingly
 import './mapStyle.css';
 
 const MapPage = () => {
   return (
-    <body>
+    <div className = "mapPage">
       <div className="header">
         <h1>GeoGrooves</h1>
       </div>
@@ -18,8 +18,10 @@ const MapPage = () => {
       </div>
       
       <div className="mapContainer">
-        {/* Include the MapComponent here */}
-        <MapComponent />
+        <MapComponent 
+          containerElement={<div style={{height:"80%"}} />}
+          mapElement={<div style = {{height: "100%"}}/>}
+        />  
       </div>
 
       <div className="NewLocation">
@@ -30,7 +32,7 @@ const MapPage = () => {
       </div>
 
       <div className="footer">@2023 GeoGrooves All Rights Reserved</div>
-    </body>
+    </div>
   );
 };
 

@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');  // Import the 'path' module
 const axios = require('axios'); // to call spotify router and shit
+const cors = require('cors')
 
 //const guestRouter = require('./routes/guestRouter');
 const usersRouter = require('./routes/usersRouter');
@@ -10,6 +11,9 @@ const locationModel = require('./models/locationsModel');
 const mapRouter = require('./routes/map/mapRouter');
 
 app.use(express.json());
+app.use(cors({
+    origin: '*'
+}))
 
 /*
 GET: http://localhost:3000
