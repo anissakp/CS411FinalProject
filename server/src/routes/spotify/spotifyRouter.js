@@ -126,7 +126,7 @@ spotifyRouter.get('/search-track', async (req, res) => {
         // Use async/await for a cleaner error handling
         const data = await spotifyApi.searchTracks(query);
 
-        console.log(data.body.tracks.items)
+        //console.log(data.body.tracks.items)
         // Check if there are tracks in the response
         if (data.body.tracks && data.body.tracks.items.length > 0) {
             res.status(200).json(data.body.tracks.items);
