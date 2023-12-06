@@ -58,15 +58,15 @@ const MapPage = () => {
 
   return (
     <div className="mapPage">
-      <div className="header">
-        <h1>GeoGrooves</h1>
+      <div className="header" style={{ textAlign: 'center' }}>
+        <h1>Welcome to the Explorer Map!</h1>
       </div>
 
       <div className="upper">
         <div className="textBox">
-          <h2>WELCOME TO THE MAP</h2>
-          <p>Select an existing location by clicking on it in the map</p>
-          <p>Or create a new location by clicking the Create button</p>
+          <h2>Guidelines</h2>
+          <p>Select a pre-existing location by clicking on it on the map.</p>
+          <p>Create a new location by entering its information.</p>
         </div>
       </div>
 
@@ -82,34 +82,32 @@ const MapPage = () => {
           <h2>can't find it..?</h2>
         </div>
         <div className="input">
-          <h2>Create One!</h2>
+        <h2 style={{ textAlign: 'center' }}>Create One!</h2>
           <form onSubmit={handleSubmit}>
             <label>
-              Location Name:
+              Location Name: 
               <input type="text" value={locationName} onChange={handleLocationNameChange} />
             </label>
             <br />
             <label>
-              Latitude:
+              Address: 
+              <input type="text" value={address} onChange={handleAddressChange} />
+            </label>
+            <br />
+            <label>
+              Latitude: 
               <input type="text" value={latitude} onChange={handleLatitudeChange} />
             </label>
             <br />
             <label>
-              Longitude:
+              Longitude: 
               <input type="text" value={longitude} onChange={handleLongitudeChange} />
-            </label>
-            <br />
-            <label>
-              Address:
-              <input type="text" value={address} onChange={handleAddressChange} />
             </label>
             <br />
             <button type="submit">Add Location</button>
           </form>
         </div>
       </div>
-
-      <div className="footer">@2023 GeoGrooves All Rights Reserved</div>
     </div>
   );
 };

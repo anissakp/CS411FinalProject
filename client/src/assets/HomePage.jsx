@@ -12,21 +12,21 @@ const containerStyle = {
 
   const buttonStyle = {
     padding: '15px 30px',
-    backgroundColor: '#4CAF50', // Green color
+    backgroundColor: '#AACBF1', // Green color
     color: 'white',
     borderRadius: '20px',
     textDecoration: 'none',
     fontSize: '18px',
   };
   
-const HomePage = () => {
+  const HomePage = () => {
     return (
-    <div style={containerStyle} >
-      <h1>Welcome to GeoGrooves</h1>
-      <h2>Connect to Spotify</h2>
-      <Link to="http://localhost:3000/spotify/login" style={buttonStyle} >Log In</Link>
-    </div>
-  );
-};
+      <div style={containerStyle}>
+        <h1 style={{ fontWeight: 800, fontSize: '48px' }}>GeoGrooves</h1>
+        <h3>Craft, Share, and Elevate Atmospheres with Our Crowd-Curated Music Site!</h3>
+        <Link to="http://localhost:3000/spotify/login" style={buttonStyle}>Login with Spotify</Link>
+      </div>
+    );
+  };
 
 export default HomePage;
