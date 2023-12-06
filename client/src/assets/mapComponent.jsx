@@ -68,7 +68,7 @@ const Map = () => {
     <div>
       <GoogleMap
         mapContainerStyle={mapContainerStyle}
-        zoom={10}
+        zoom={12}
         center={center}
       >
         {markersInfo.map(({ lat, lng, playlistId }) => (
