@@ -4,15 +4,12 @@ import { useParams } from 'react-router-dom';
 
 const LocationPage = () => {
   const { playlistId } = useParams();
-  console.log(playlistId)
-  /* songQuery is the input that the user gives */
   const [songQuery, setSongQuery] = useState('');
   const [searchInfo, setSearchInfo] = useState(null);
   const [playlistInfo, setPlaylistInfo] = useState([]);
 
   const handleSearch = async () => {
     try {
-      console.log('Song Query:', songQuery);
       const response = await axios.get(`http://localhost:3000/spotify/search-track?track=${songQuery}`);
       setSearchInfo(response.data);
     } catch (error) {
@@ -20,24 +17,32 @@ const LocationPage = () => {
     }
   };
 
-  console.log('Search Info:', searchInfo);
+  const handleAddTrackToPlaylist = async (trackId) => {
+    try {
+      const response = await axios.post('http://localhost:3000/spotify/add-track', {
+        playlistId,
+        trackId,
+      });
 
-  // Fetch additional details based on playlistId and display them
-  /* make it so it shows playlist info */
+      // Handle the response (success or error)
+      console.log('Track added to playlist:', response.data);
+    } catch (error) {
+      console.error('Error adding track to playlist:', error);
+    }
+  };
+
   useEffect(() => {
     const getPlaylist = async () => {
       try {
         const playlistInfo = await axios.get(`http://localhost:3000/spotify/search-playlist?playlistId=${playlistId}`);
-        setPlaylistInfo(playlistInfo)
-      } catch (error) { 
+        setPlaylistInfo(playlistInfo.data);
+      } catch (error) {
         console.error('Error getting track from backend into frontend:', error);
       }
-    }
+    };
 
     getPlaylist();
   }, []);
-
-  console.log('playlistInfo:', playlistInfo);
 
   return (
     <div>
@@ -78,7 +83,11 @@ const LocationPage = () => {
             <p>Artist: {track.artists[0].name}</p>
             <p>Album: {track.album.name}</p>
             <p>Spotify ID: {track.id}</p>
-            {/* Add more details as needed */}
+
+            {/* Add track to playlist button */}
+            <button onClick={() => handleAddTrackToPlaylist(track.id)}>
+              Add to Playlist
+            </button>
           </div>
         ))}
       </div>
@@ -87,4 +96,3 @@ const LocationPage = () => {
 };
 
 export default LocationPage;
-
