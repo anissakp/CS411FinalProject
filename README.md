@@ -1,5 +1,5 @@
 # CS411FinalProject
-Anissa Patel, Jood Alasiri, Ana Ramirez, Raghu Nema
+Anissa Patel, Ana Ramirez, Raghu Nema, Jood Alasiri
 
 # Title: GeoGrooves
 User-Generated Ambient Music Experience
