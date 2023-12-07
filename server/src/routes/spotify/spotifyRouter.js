@@ -206,6 +206,8 @@ spotifyRouter.get('/search-playlist', async (req, res) => {
  * http://localhost:3000/spotify/add-track
  */ 
 spotifyRouter.post('/add-track', async (req, res) => {
+    let data;
+
     try {
         const accessToken = spotifyApi.getAccessToken();
         if (!accessToken) {
@@ -221,7 +223,7 @@ spotifyRouter.post('/add-track', async (req, res) => {
         const trackId = `spotify:track:${req.body.trackId}`;
 
         try {
-            const data = await spotifyApi.addTracksToPlaylist(playlistId, [trackId]);
+            data = await spotifyApi.addTracksToPlaylist(playlistId, [trackId]);
             console.log('Track added to playlist:', data);
         } catch (error) {
             console.error('Error adding track to playlist:', error.message);
