@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import './LocationStyle.css';
 
 const LocationPage = () => {
   const { playlistId } = useParams();
@@ -46,49 +47,17 @@ const LocationPage = () => {
 
   console.error(playlistInfo)
 
-  const FormatPlaylistInfo = ( {playlistData}) => {
-    if (!playlistData) {
-      return <div>Loading...</div>;
-    }
-
-    const { name, owner, tracks } = playlistData;
-
-    return (
-      <div>
-        <h1>{name}</h1>
-        <p>Owner: {owner.display_name}</p>
-        <h2>Tracks:</h2>
-        <ul>
-          {tracks.items.map((trackItem) => {
-            const { track } = trackItem;
-            return (
-              <li key={track.id}>
-                <p>Title: {track.name}</p>
-                <p>Artist: {track.artists.map((artist) => artist.name).join(', ')}</p>
-                <p>Track ID: {track.id}</p>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-    );
-
-  }
-
   return (
-    <div>
-      <div style={{ paddingTop: '50px' }}>
-        <h1>Your Selected Location's Profile</h1>
-        <div className="upper">
-          <div className="textBox">
-            <h2>Playlist ID: {playlistId}</h2>
-            <p>Search for a song and add it to your selected location's playlist.</p>
-          </div>
-        </div>
-
-        <div>
-          <FormatPlaylistInfo playlistData = {playlistInfo} />
-        </div>
+    <div className="LocationPage">
+    <div className= "Upper">
+          <h1>GeoGrooves</h1>
+    </div>
+    <div className="textBox">
+    <h2>Welcome to your location's page</h2>
+    <h4>Playlist ID: {playlistId}</h4>
+    </div>
+    <p>Search for a song and add it to your selected Location's Playlist!</p>
+ 
 
         <div style={{ marginBottom: '20px' }}>
           <input
@@ -101,17 +70,18 @@ const LocationPage = () => {
             onClick={handleSearch}
             style={{
               backgroundColor: 'rgba(170, 203, 239, 1)',
-              padding: '8px 12px',
+              padding: '8px 30px',
+              marginLeft:'20px',
               borderRadius: '15px',
               color: '#fff',
               cursor: 'pointer',
+    
             }}
           >
             Search
           </button>
         </div>
 
-        {/* Display Search Results */}
         {searchInfo && searchInfo.map((track) => (
           <div key={track.id}>
             <h3>{track.name}</h3>
@@ -119,15 +89,25 @@ const LocationPage = () => {
             <p>Album: {track.album.name}</p>
             <p>Spotify ID: {track.id}</p>
 
-            {/* Add track to playlist button */}
-            <button onClick={() => handleAddTrackToPlaylist(track.id)}>
+            <button onClick={() => handleAddTrackToPlaylist(track.id)}
+            style={{
+              backgroundColor: 'rgba(170, 203, 239, 1)',
+              padding: '8px 30px',
+              marginLeft:'20px',
+              border: '2px solid black',
+              borderRadius: '15px',
+              color: 'white',
+              cursor: 'pointer',
+
+    
+            }}>
               Add to Playlist
             </button>
           </div>
         ))}
       </div>
-    </div>
   );
 };
+
 
 export default LocationPage;
