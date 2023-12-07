@@ -63,14 +63,13 @@ const LocationPage = () => {
             <h3>{track.name}</h3>
             <p>Artist: {track.artists[0].name}</p>
             <p>Album: {track.album.name}</p>
-            <p>Spotify ID: {track.id}</p>
+            <p>Spotify ID: {track.id}</p>  {/* WRITE track.id TO GET THE SONG ID*/}
             {/* Add more details as needed */}
           </div>
         ))}
       </div>
     </div>
-  );
+  ); 
 };
 
 export default LocationPage;
-
