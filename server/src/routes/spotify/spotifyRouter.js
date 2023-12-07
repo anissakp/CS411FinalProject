@@ -158,7 +158,7 @@ spotifyRouter.post('/make-playlist', (req, res) => {
     const playlistName = req.body.playlistName;
     const playlastDescription = req.body.description;
 
-    spotifyApi.createPlaylist(playlistName, {'description': playlastDescription, 'public': true})
+    spotifyApi.createPlaylist(playlistName, {'description': playlastDescription, 'public': false, 'collaborative': true})
         .then(data => {
             console.log(data.body.id)
             //res.send(data.body.id)
