@@ -87,27 +87,15 @@ const LocationPage = () => {
             <h3>{track.name}</h3>
             <p>Artist: {track.artists[0].name}</p>
             <p>Album: {track.album.name}</p>
-            <p>Spotify ID: {track.id}</p>
 
-            <button onClick={() => handleAddTrackToPlaylist(track.id)}
-            style={{
-              backgroundColor: 'rgba(170, 203, 239, 1)',
-              padding: '8px 30px',
-              marginLeft:'20px',
-              border: '2px solid black',
-              borderRadius: '15px',
-              color: 'white',
-              cursor: 'pointer',
-
-    
-            }}>
-              Add to Playlist
-            </button>
           </div>
         ))}
       </div>
-  );
+
+    </div>
+  ); 
 };
 
 
 export default LocationPage;
+
