@@ -1,7 +1,6 @@
 # CS411FinalProject
-Group Members: Raghu Nema, Anissa Patel, Ana Ramirez, and Jood Alasiri
-
-Team #: 10
+- Group Members: Raghu Nema, Anissa Patel, Ana Ramirez, and Jood Alasiri
+- Team #: 10
 
 # Title: GeoGrooves
 User-Generated Ambient Music Experience
