@@ -1,5 +1,6 @@
 # CS411FinalProject
-Group Members: Anissa Patel, Ana Ramirez, Raghu Nema, and Jood Alasiri
+Group Members: Raghu Nema, Anissa Patel, Ana Ramirez, and Jood Alasiri
+
 Team #: 10
 
 # Title: GeoGrooves
