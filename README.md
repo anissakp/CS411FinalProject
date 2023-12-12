@@ -1,4 +1,4 @@
-# CS411FinalProject
+# CS411 Final Project
 - Group Members: Raghu Nema, Anissa Patel, Ana Ramirez, and Jood Alasiri
 - Team #: 10
 
