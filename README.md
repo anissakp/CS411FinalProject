@@ -20,9 +20,3 @@ A web application that allows users to enhance their surroundings with personali
 
 # Security: 
 - Implement OAuth for secure user authentication, ensuring that only authorized users can access and modify their accounts.
-
-# Video Submission: 
-https://drive.google.com/file/d/1dguEZ25yXqasGUd7UfG9IFYT1LCpM5Nr/view?usp=sharing
-
-# Figma Mock-Up: 
-https://www.figma.com/file/Dbyz5ElqJMA2B5oFBspTSr/CS-411-Website-Mockup?type=design&node-id=0%3A1&mode=design&t=rlhN1r0aOUenta6Q-1
